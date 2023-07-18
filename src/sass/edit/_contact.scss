@@ -1,0 +1,35 @@
+#contact .row {
+  justify-content: center;
+  
+  .contact__form {
+    display: flex;
+    flex-direction: column;
+  
+    > label {
+      margin: 15px 0;
+      font-size: 18px;
+      font-weight: $font-semibold;
+      letter-spacing: 5px;
+      text-align: center;
+      text-transform: uppercase;
+    }
+  
+    > input, textarea {
+      border: 2px solid $color-dark;
+      resize: none;
+      padding: 11px 6px;
+      font-size: 16px;
+    }
+  
+    button {
+      @include form-button;
+      transition: 1s;
+  
+      &:hover {
+        background-color: $color-dark;
+        border: 2px solid $color-dark;
+        color: $color-main;
+      }
+    }
+  }
+}

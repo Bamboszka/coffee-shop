@@ -1,30 +1,23 @@
-// Bootstrap
+@import 'edit/normalize';
 
 @import "bootstrap/functions";
 @import "bootstrap/variables";
 @import "bootstrap/mixins";
 @import "bootstrap/utilities";
 @import "bootstrap/grid";
-@import "bootstrap/images";
+@import "bootstrap/transitions";
+@import "bootstrap/nav";
+@import "bootstrap/navbar";
+@import "bootstrap/utilities/api";
 
-// normalize default styles
-@import "normalize";
-
-// Bootstrap
-@import "bootstrap/functions";
-@import "bootstrap/variables";
-@import "bootstrap/mixins";
-@import "bootstrap/utilities";
-@import "bootstrap/grid";
-
-// variables
-@import "variables";
-
-// common styles
-@import "layout";
-@import "global";
-@import "typography";
-
-// icons
-
-@import "icons";
+@import 'edit/settings';
+@import 'edit/mixins';
+@import 'edit/global';
+@import 'edit/typography';
+@import 'edit/header';
+@import 'edit/navbar';
+@import 'edit/products';
+@import 'edit/about';
+@import 'edit/contact';
+@import 'edit/footer';
+@import 'edit/media';

@@ -1,0 +1,35 @@
+#home__about {
+  @include section-background-relative;
+  
+  .home__about--background {
+    @include section-background-absolute;
+  }
+    
+  .container {
+    @include container-settings;
+  }
+
+  .row {
+    justify-content: center;
+    align-items: flex-start;
+    height: 100vh;
+  }
+
+  .text__wrapper {
+    max-width: fit-content;
+  }
+
+  p {
+    font-size: 34px;
+    font-style: italic;
+    font-weight: $font-semibold;
+    color: $color-light;
+    line-height: 1.4;
+    letter-spacing: 2px;
+    margin: 5% 0 0;
+
+    &:last-child {
+      text-align: right;
+    }
+  }
+}
