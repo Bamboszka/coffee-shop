@@ -3,157 +3,157 @@ import Product from './components/Product.js';
 import Contact from './components/Contact.js';
 
 const app = {
-    initPages: function () {
-        const thisApp = this;
+  initPages: function () {
+    const thisApp = this;
 
-        thisApp.pages = document.querySelector(select.containerOf.pages).children;
-        thisApp.navLinks = document.querySelectorAll(select.nav.links);
+    thisApp.pages = document.querySelector(select.containerOf.pages).children;
+    thisApp.navLinks = document.querySelectorAll(select.nav.links);
 
-        const idFromHash = window.location.hash.replace('#/', '');
+    const idFromHash = window.location.hash.replace('#/', '');
 
-        let pageMatchingHash = thisApp.pages[0].id;
+    let pageMatchingHash = thisApp.pages[0].id;
 
-        for (let page of thisApp.pages) {
-            if (page.id == idFromHash) {
-                pageMatchingHash = page.id;
-                break;
-            }
-        }
+    for (let page of thisApp.pages) {
+      if (page.id == idFromHash) {
+        pageMatchingHash = page.id;
+        break;
+      }
+    }
 
-        thisApp.activatePage(pageMatchingHash);
+    thisApp.activatePage(pageMatchingHash);
 
-        for (let link of thisApp.navLinks) {
-            link.addEventListener('click', function (event) {
-                const clickedElement = this;
-                event.preventDefault();
+    for (let link of thisApp.navLinks) {
+      link.addEventListener('click', function (event) {
+        const clickedElement = this;
+        event.preventDefault();
 
-                const id = clickedElement.getAttribute('href').replace('#', '');
+        const id = clickedElement.getAttribute('href').replace('#', '');
 
-                thisApp.activatePage(id);
+        thisApp.activatePage(id);
 
-                window.location.hash = '#/' + id;
-            });
-        }
+        window.location.hash = '#/' + id;
+      });
+    }
 
-        thisApp.initButtons();
-    },
+    thisApp.initButtons();
+  },
 
-    activatePage: function (pageId) {
-        const thisApp = this;
+  activatePage: function (pageId) {
+    const thisApp = this;
 
-        for (let page of thisApp.pages) {
-            page.classList.toggle(classNames.pages.active, page.id == pageId);
-        }
+    for (let page of thisApp.pages) {
+      page.classList.toggle(classNames.pages.active, page.id == pageId);
+    }
 
-        for (let link of thisApp.navLinks) {
-            link.classList.toggle(
-                classNames.pages.active,
-                link.getAttribute('href') == '#' + pageId
-            );
-        }
-    },
+    for (let link of thisApp.navLinks) {
+      link.classList.toggle(
+        classNames.pages.active,
+        link.getAttribute('href') == '#' + pageId
+      );
+    }
+  },
 
-    initButtons: function () {
-        const discoverButton = document.getElementById(select.button.discover);
+  initButtons: function () {
+    const discoverButton = document.getElementById(select.button.discover);
 
-        discoverButton.addEventListener('click', function (event) {
-            let idFromHash = window.location.hash.replace('#/', '');
+    discoverButton.addEventListener('click', function (event) {
+      let idFromHash = window.location.hash.replace('#/', '');
 
-            let clickedElement = document.getElementById(idFromHash);
+      let clickedElement = document.getElementById(idFromHash);
 
-            if (clickedElement == null) {
-                clickedElement = document.getElementById(select.section.home);
-            }
+      if (clickedElement == null) {
+        clickedElement = document.getElementById(select.section.home);
+      }
 
-            event.preventDefault();
+      event.preventDefault();
 
-            clickedElement.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start',
-            });
-        });
-    },
+      clickedElement.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    });
+  },
 
-    initData: function () {
-        const thisApp = this;
+  initData: function () {
+    const thisApp = this;
 
-        const url = settings.db.url + '/' + settings.db.products;
+    const url = settings.db.url + '/' + settings.db.products;
 
-        thisApp.data = {};
+    thisApp.data = {};
 
-        fetch(url)
-            .then((rawResponse) => {
-                return rawResponse.json();
-            }).catch(err => { alert(`Error: ${err}`); })
-            .then((parsedResponse) => {
-                this.data.products = parsedResponse;
+    fetch(url)
+      .then((rawResponse) => {
+        return rawResponse.json();
+      }).catch(err => { alert(`Error: ${err}`); })
+      .then((parsedResponse) => {
+        this.data.products = parsedResponse;
 
-                thisApp.initGallery();
-            }).catch(err => { alert(`Error: ${err}`); });
-    },
+        thisApp.initGallery();
+      }).catch(err => { alert(`Error: ${err}`); });
+  },
 
-    initContact: function () {
-        const thisApp = this;
+  initContact: function () {
+    const thisApp = this;
 
-        thisApp.contactContainer = document.querySelector(
-            select.containerOf.contact
-        );
+    thisApp.contactContainer = document.querySelector(
+      select.containerOf.contact
+    );
 
-        thisApp.contact = new Contact(thisApp.contactContainer);
-    },
+    thisApp.contact = new Contact(thisApp.contactContainer);
+  },
 
-    init: function () {
-        const thisApp = this;
+  init: function () {
+    const thisApp = this;
 
-        thisApp.initPages();
-        thisApp.initData();
-        thisApp.initContact();
-    },
+    thisApp.initPages();
+    thisApp.initData();
+    thisApp.initContact();
+  },
 
-    initGallery: function () {
-        const thisApp = this;
+  initGallery: function () {
+    const thisApp = this;
 
-        let productList = [];
+    let productList = [];
 
-        for (let productData in thisApp.data.products) {
-            new Product(
-                thisApp.data.products[productData].id,
-                thisApp.data.products[productData]
-            );
+    for (let productData in thisApp.data.products) {
+      new Product(
+        thisApp.data.products[productData].id,
+        thisApp.data.products[productData]
+      );
 
-            productList.push(thisApp.data.products[productData].name);
-        }
+      productList.push(thisApp.data.products[productData].name);
+    }
 
-        const productNameSelector = document.querySelectorAll(select.product.name);
+    const productNameSelector = document.querySelectorAll(select.product.name);
 
-        for (let product of productNameSelector) {
-            const productName = product.innerHTML;
+    for (let product of productNameSelector) {
+      const productName = product.innerHTML;
 
-            const productIndex = productList.indexOf(productName) + 1;
+      const productIndex = productList.indexOf(productName) + 1;
 
-            const productToStr = productIndex.toString();
+      const productToStr = productIndex.toString();
 
-            const adjNum = productToStr.padStart(2, '0');
+      const adjNum = productToStr.padStart(2, '0');
 
-            const productNumtoTxt = product.insertAdjacentHTML(
-                'afterbegin',
-                adjNum + '.' + ' '
-            );
-            console.log(productNumtoTxt);
+      const productNumtoTxt = product.insertAdjacentHTML(
+        'afterbegin',
+        adjNum + '.' + ' '
+      );
+      console.log(productNumtoTxt);
 
-            const productWrapper = product.parentElement.parentElement;
+      const productWrapper = product.parentElement.parentElement;
 
-            if (productIndex % 2 == 0) {
-                productWrapper.classList.add(classNames.product.rowReverse);
-            }
+      if (productIndex % 2 == 0) {
+        productWrapper.classList.add(classNames.product.rowReverse);
+      }
 
-            const productDescription = product.nextElementSibling;
+      const productDescription = product.nextElementSibling;
 
-            if (productIndex == 1) {
-                productDescription.classList.add(classNames.product.mostPopular);
-            }
-        }
-    },
+      if (productIndex == 1) {
+        productDescription.classList.add(classNames.product.mostPopular);
+      }
+    }
+  },
 };
 
 app.init();
