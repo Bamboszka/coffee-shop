@@ -12,3 +12,27 @@ body {
   font-weight: $font-regular;
   color: $color-dark;
 }
+
+.container {
+  max-width: 1140px;
+  padding: 0 36px;
+  margin: 0 auto;
+}
+
+.section__title {
+  @include section-title;
+
+  &::after {
+    @include title-bar;
+  }
+}
+
+#pages {
+  >* {
+    display: none;
+  }
+
+  >.active {
+    display: block;
+  }
+}

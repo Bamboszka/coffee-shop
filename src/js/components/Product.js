@@ -12,6 +12,7 @@ class Product {
     thisProduct.renderInProducts();
     thisProduct.getElements();
   }
+
   renderProduct() {
     const thisProduct = this;
 
@@ -69,4 +70,5 @@ class Product {
     );
   }
 }
+
 export default Product;
